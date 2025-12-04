@@ -679,12 +679,12 @@ class Trainer3KD_fusion():
                         first_key = next(iter(batch_data))
                         length = batch_data[first_key].size(0)
                         # batch_data['text'] = torch.zeros(length, 128).cuda()
-                          #此处的模型是视频帧的模型或者是音频的模型，此时要在run.py的569行替换模型名称
+                        #加载教师模型, load teacher model
                         output_t, text, fea_gpt, output_coun,loss_t = model_t(**batch_data)
                         _, preds_t = torch.max(output_t, 1)
                         batch_data['t_fea'] = text
 
-
+                        # load student model
                         output_a,audio, output_coun, loss_a = model_a(**batch_data)
                         _, preds_a = torch.max(output_a, 1)
 
@@ -694,8 +694,6 @@ class Trainer3KD_fusion():
                         batch_data['frames'] = frames
                         batch_data['audioframes'] = audio
                         batch_data['text'] = text
-
-                        # 计算 softmax 概率
 
                         outputs, fea , output_coun, loss_v = self.model(**batch_data)  
                         # outputs, fea  = self.model(**batch_data) 
