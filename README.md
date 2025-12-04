@@ -1,5 +1,6 @@
 # TGFC-SVFN
-## Title：Text-Guided Fine-grained Counterfactual Inference for Short Video Fake News Detection
+## Title：Text-Guided Fine-grained Counterfactual Inference for Short Video Fake News Detection 
+### Url: https://ojs.aaai.org/index.php/AAAI/article/view/32112
 
 ### Model Training Process
 The model training process is as follows: first train the teacher model, then load the pre-trained teacher model to independently train the video frame student model and the audio student model respectively, and finally train the fusion model.
