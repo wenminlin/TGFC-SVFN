@@ -296,7 +296,6 @@ def CE_Loss(pred_outs, logit_t, hidden_s, hidden_t, labels,predst):  #此处的�
 
 
 # ########The training method of the student(frames/audio) model
-# #在这一部分的前面需要加载教师模型，设置为测试模式，去训练学生模型
 model_t = Teacher_model(bert_model=r"/root/autodl-tmp/new_fakesv/FakeSV-main/code/data/bert-base-chinese", fea_dim=128, dropout=0.1)
 model_t.load_state_dict(torch.load('/root/autodl-tmp/new_fakesv/FakeSV-main/code/data/KDmodel_param/text/_val_epoch2_0.8320'))
 for para in model_t.parameters():
@@ -545,8 +544,7 @@ class Trainer3KD_Sf():
 
     
     
-# # # # # ######## fusion model
-# # # #在这一部分的前面需要加载教师模型，设置为测试模式，去训练学生模型
+# # # # # ######## train fusion model
 model_t = Teacher_model(bert_model=r"/root/autodl-tmp/new_fakesv/FakeSV-main/code/data/bert-base-chinese", fea_dim=128, dropout=0.1)
 model_t.load_state_dict(torch.load('/root/autodl-tmp/new_fakesv/FakeSV-main/code/data/KDmodel_param/text/_val_epoch2_0.8320'))
 for para in model_t.parameters():
@@ -681,7 +679,7 @@ class Trainer3KD_fusion():
                         first_key = next(iter(batch_data))
                         length = batch_data[first_key].size(0)
                         # batch_data['text'] = torch.zeros(length, 128).cuda()
-                          #此处的模型是视频帧的模型或者是音频的模型，此时要在run。py的569行替换模型名称
+                          #此处的模型是视频帧的模型或者是音频的模型，此时要在run.py的569行替换模型名称
                         output_t, text, fea_gpt, output_coun,loss_t = model_t(**batch_data)
                         _, preds_t = torch.max(output_t, 1)
                         batch_data['t_fea'] = text
